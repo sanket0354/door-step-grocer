@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>WelcomeToDoorStepGrocer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="resources/css/animate.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="resources/font-awesome-4.6.3/css/font-awesome.min.css">
+<script type="text/javascript"
+	src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+<link rel="stylesheet" href="resources/css/StyleSheet2.css">
+<script type="text/javascript"
+	src="resources/javascript/getAllInfoOnProducts.js"></script>
+<script type="text/javascript"
+	src="resources/javascript/populateNavBar.js"></script>
+<script type="text/javascript"
+	src="resources/javascript/populateStoreFront.js"></script>
+
+</head>
+<body>
+	<header>
+		<!-- This class represent navbar of website and it contains two menu items as the form o the button which is Login and Signup -->
+		<nav class="navbar navbar-inverse navbar-fixed-top" id="my-navbar">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#myNavbar">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a href="#" class="navbar-brand" style="font-weight: bold;">Doorstep-Grocer</a>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav navbar-right" style="text-align: center;">
+
+						<li id="AdminPanelNavBar"><a id="adminPanel"
+							href="http://localhost:8084/doorstep-grocer/admin.html"><span
+								style="cursor: pointer; font-size: 15px; color: white; font-family: 'open_sansregular', 'Helvetica Neue', Arial, sans-serif;"><b>Admin
+										Panel</b></span></a></li>
+
+
+						<li><a id="PreviousOrders" onclick="displayPreviousOrders()"
+							data-toggle="modal" data-target="#PreviousOrdersModal"
+							style="cursor: pointer;"><span
+								style="font-size: 15px; color: white; font-family: 'open_sansregular', 'Helvetica Neue', Arial, sans-serif;"><b>Previous
+										Orders</b></span></a></li>
+						<!-- Language DropDown -->
+						<li class="dropdown"><a id="displayLanguageDropDown"
+							data-toggle="dropdown" class="dropdown-toggle"><span
+								id="displayCurrentLanguage"
+								style="font-size: 15px; color: white; font-family: 'open_sansregular', 'Helvetica Neue', Arial, sans-serif;"><b
+									id="displayLangInBold">English</b> </span><b class="caret"></b></a>
+							<ul class="dropdown-menu" id="languageOptions">
+								<li><a id="displayLanguageDropDown"
+									onclick='changeLanguage(this)'>French</a></li>
+							</ul></li>
+						<li><a id="Logout" onclick="sendLogOutRequest()"><span
+								style="cursor: pointer; font-size: 15px; color: white; font-family: 'open_sansregular', 'Helvetica Neue', Arial, sans-serif;"><b>Logout</b></span></a>
+						</li>
+						<li><a class="fa fa-shopping-cart fa-2x"
+							onclick="displayCurrentCart()" data-toggle="modal"
+							data-target="#myModal" style="cursor: pointer;"> <span
+								id="quantity" class="badge" style="background-color: red;"><span
+									class="animated fadeInDown"></span></span>
+						</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div id="sidebar">
+		<!-- Sidebar -->
+		<nav class="navbar navbar-inverse navbar-fixed-top"
+			id="sidebar-wrapper" role="navigation">
+			<ul id="DyanamicNavigationBar" class="nav sidebar-nav">
+				<!-- THIS PART WILL BE DYNAMICALLY POPULATED FROM DATABASE -->
+			</ul>
+		</nav>
+	</div>
+	<div class="modal fade" id="myModal" role="dialog"
+		data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" id="cancel"
+						data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Cart</h4>
+
+				</div>
+				<div id="cartbody">
+					<div class="modal-body">
+						<div id="NoItemsInCart"></div>
+						<div id="cartTable" class="table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Product Name</th>
+										<th>Quantity</th>
+										<th>Total Price</th>
+										<th>Add or Remove</th>
+									</tr>
+								</thead>
+								<tbody id="addItemsToCartDisplay">
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div class="pull-left">
+							<a class="currencyChnageLink" id="usdCurrency"
+								onclick="EuroToUsd()" style="text-decoration: none; color: red;"><span
+								style="cursor: pointer; font-size: 15px; font-family: 'open_sansregular', 'Helvetica Neue', Arial, sans-serif;"><b>USD
+								</b></span></a> | <a class="currencyChnageLink" id="EuroCurrency"
+								onclick="UsdToEuro()"
+								style="text-decoration: none; color: blue;"><span
+								style="cursor: pointer; font-size: 15px; font-family: 'open_sansregular', 'Helvetica Neue', Arial, sans-serif;"><b>
+										EURO</b></span></a>
+						</div>
+						<button type="button" class="btn btn-default" id="checkOut"
+							style="background-color: #337ab7; border-color: #2e6da4; font-weight: bold; color: white;">CheckOut</button>
+					</div>
+				</div>
+				<!-- adrress modal Body -->
+
+				<div id="address-modal-body" style="display: none;">
+					<div class="modal-body">
+						<div class="container">
+							<form class="form-horizontal" method="post" action="">
+								<fieldset>
+									<legend>Please Enter An Address</legend>
+									<div class="input-group">
+										<label for="address1" class="col-lg control-label">Address</label>
+										<div class="col-lg inputGroupContainer">
+											<div class="input-group">
+												<span class="input-group-addon"><i
+													class="glyphicon glyphicon-home"></i></span> <input name="address"
+													id="address1" placeholder="Address" class="form-control"
+													type="text">
+											</div>
+										</div>
+									</div>
+									<br>
+									<div class="input-group">
+										<label for="city" class="col-lg control-label">City</label>
+										<div class="col-lg inputGroupContainer">
+											<div class="input-group">
+												<span class="input-group-addon"><i
+													class="glyphicon glyphicon-home"></i></span> <input name="city"
+													id="city" placeholder="city" class="form-control"
+													type="text">
+											</div>
+										</div>
+									</div>
+									<br>
+									<div class="input-group">
+										<label for="state" class="col-lg control-label">State</label>
+										<div class="col-lg selectContainer">
+											<div class="input-group">
+												<span class="input-group-addon"><i
+													class="glyphicon glyphicon-list"></i></span> <select name="state"
+													id="state" class="form-control selectpicker">
+													<option value="">Please Select State</option>
+													<option value="AB">Alberta</option>
+													<option value="BC">British Columbia</option>
+													<option value="MB">Manitoba</option>
+													<option value="NB">New Brunswick</option>
+													<option value="NL">Newfoundland and Labrador</option>
+													<option value="NS">Nova Scotia</option>
+													<option value="ON">Ontario</option>
+													<option value="PE">Prince Edward Island</option>
+													<option value="QC">Quebec</option>
+													<option value="SK">Saskatchewan</option>
+													<option value="NT">Northwest Territories</option>
+													<option value="NU">Nunavut</option>
+													<option value="YT">Yukon</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<br>
+									<div class="input-group">
+										<label for="zipcode" class="col-lg control-label">Zip
+											Code</label>
+										<div class="col-lg inputGroupContainer">
+											<div class="input-group">
+												<span class="input-group-addon"><i
+													class="glyphicon glyphicon-home"></i></span> <input name="zip"
+													id="zipcode" placeholder="Zip Code" class="form-control"
+													type="text">
+											</div>
+										</div>
+									</div>
+									<br>
+								</fieldset>
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" id="addressStep"
+							onclick="gatherOrderDetails(this)"
+							style="background-color: #337ab7; border-color: #2e6da4; font-weight: bold; color: white;">Next</button>
+					</div>
+				</div>
+
+				<!--Payment Dialog Body -->
+				<div id="payment-body" style="display: none;">
+					<div class="modal-body">
+
+
+						<h3>Process Payment:</h3>
+						<form method="post" id="payment-form">
+							<div class="form-row">
+								<label for="card-element"> Credit or debit card </label>
+								<div id="card-element">
+									<!-- a Stripe Element will be inserted here. -->
+								</div>
+
+								<!-- Used to display Element errors -->
+								<div id="card-errors"></div>
+							</div>
+							<br>
+							<div>
+								<button id="ProcessPaymentButton" class="btn">Process
+									Payment</button>
+								<span id="loadingPayment" class="loader"></span>
+
+							</div>
+							<br>
+							<div id="paymentFailureLabel" class="alert alert-danger"
+								style="display: none;">Payment Cannot be Processed! Please
+								Try Again</div>
+							<div id="paymentSuccessLabel" class="alert alert-success"
+								style="display: none;">Payment Processed! Click next to
+								Review you order.</div>
+
+						</form>
+
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default"
+							id="processPaymentStep"
+							style="background-color: #337ab7; border-color: #2e6da4; font-weight: bold; color: white;"
+							disabled="true">Place Order</button>
+						<span id="loadingPayment" class="loader"></span>
+					</div>
+
+
+				</div>
+
+
+				<!-- Order Review Body -->
+				<div id="order-review-body" style="display: none;">
+					<div class="modal-body">
+						<h3>Order Review:</h3>
+						<div class="table-responsive">
+							<table class="table">
+								<tbody id="orderReviewTable">
+								</tbody>
+							</table>
+						</div>
+						<div class="table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Product Name</th>
+										<th>Quantity</th>
+										<th>Price</th>
+									</tr>
+								</thead>
+								<tbody id="addOrderReviewItems">
+
+								</tbody>
+								<tfoot id="reviewOrderTotalPrice">
+								</tfoot>
+							</table>
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" id="placeOrderStep"
+							onclick="placeOrder()"
+							style="background-color: #337ab7; border-color: #2e6da4; font-weight: bold; color: white;">Complete
+							Order</button>
+						<span id="loading" class="loader"></span>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<div id="order_placed_body" style="display: none;">
+			<div class="modal-body">
+				<h3>Your Order is placed. Check your Email for delivery
+					confirmation.</h3>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Previous Orders Modal -->
+	<div class="modal fade" id="PreviousOrdersModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" id="cancel_repearOrder"
+						data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Previous Orders</h4>
+
+				</div>
+				<div id="previousOrdersBody">
+					<div id="previousOrderModalBody" class="modal-body"
+						style="max-height: 500px; overflow-y: auto;">
+						<div id="previousOrderLoaderDiv">
+							<span style="margin-top: 60px;">Loading your
+								Orders....&nbsp;&nbsp;&nbsp;</span> <span id="previousOrderLoader"
+								class="loader" style="position: fixed;"></span>
+						</div>
+
+						<div class="panel-group" id="previousOrderAccordion"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+				<div id="previous-order-address-modal-body" style="display: none;">
+					<div class="modal-body">
+						<div class="container">
+							<form class="form-horizontal" method="post" action="">
+								<fieldset>
+									<legend>Please Enter An Address</legend>
+									<div class="input-group">
+										<label for="address-repeatOrder" class="col-lg control-label">Address</label>
+										<div class="col-lg inputGroupContainer">
+											<div class="input-group">
+												<span class="input-group-addon"><i
+													class="glyphicon glyphicon-home"></i></span> <input name="address"
+													id="address-repeatOrder" placeholder="Address"
+													class="form-control" type="text">
+											</div>
+										</div>
+									</div>
+									<br>
+									<div class="input-group">
+										<label for="city-repeatOrder" class="col-lg control-label">City</label>
+										<div class="col-lg inputGroupContainer">
+											<div class="input-group">
+												<span class="input-group-addon"><i
+													class="glyphicon glyphicon-home"></i></span> <input name="city"
+													id="city-repeatOrder" placeholder="city"
+													class="form-control" type="text">
+											</div>
+										</div>
+									</div>
+									<br>
+									<div class="input-group">
+										<label for="state-repeatOrder" class="col-lg control-label">State</label>
+										<div class="col-lg selectContainer">
+											<div class="input-group">
+												<span class="input-group-addon"><i
+													class="glyphicon glyphicon-list"></i></span> <select name="state"
+													id="state-repeatOrder" class="form-control selectpicker">
+													<option value="">Please Select State</option>
+													<option value="AB">Alberta</option>
+													<option value="BC">British Columbia</option>
+													<option value="MB">Manitoba</option>
+													<option value="NB">New Brunswick</option>
+													<option value="NL">Newfoundland and Labrador</option>
+													<option value="NS">Nova Scotia</option>
+													<option value="ON">Ontario</option>
+													<option value="PE">Prince Edward Island</option>
+													<option value="QC">Quebec</option>
+													<option value="SK">Saskatchewan</option>
+													<option value="NT">Northwest Territories</option>
+													<option value="NU">Nunavut</option>
+													<option value="YT">Yukon</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<br>
+									<div class="input-group">
+										<label for="zipcode-repeatOrder" class="col-lg control-label">Zip
+											Code</label>
+										<div class="col-lg inputGroupContainer">
+											<div class="input-group">
+												<span class="input-group-addon"><i
+													class="glyphicon glyphicon-home"></i></span> <input name="zip"
+													id="zipcode-repeatOrder" placeholder="Zip Code"
+													class="form-control" type="text">
+											</div>
+										</div>
+									</div>
+									<br>
+								</fieldset>
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default"
+							id="addressStep_repeatOrder"
+							onclick="gatherOrderDetails_repeatOrder(this)"
+							style="background-color: #337ab7; border-color: #2e6da4; font-weight: bold; color: white;">Place
+							Order</button>
+						<span id="loading_repeatOrder" class="loader"></span>
+
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	
+			
+	
+	</div>
+
+	<div class="items-container">
+		<div id="addSuccessPlaceOrder"></div>
+		<div id="populateItemsFromDatabase" class="row"></div>
+	</div>
+</body>
+
+<script type="text/javascript" src="resources/javascript/loginv1.js"></script>
+<script type="text/javascript"
+	src="resources/javascript/paymentGateway.js"></script>
+
+
+<script type="text/javascript" src="resources/javascript/logOut.js"></script>
+<script type="text/javascript"
+	src="resources/javascript/changeCurrency.js"></script>
+
+<script type="text/javascript"
+	src="resources/javascript/loadTheStoreFrontForFirstTime.js"></script>
+<script type="text/javascript" src="resources/javascript/cart.js"></script>
+<script type="text/javascript"
+	src="resources/javascript/changeLanguage.js"></script>
+<script type="text/javascript"
+	src="resources/javascript/checkoutcart.js"></script>
+<script type="text/javascript"
+	src="resources/javascript/previousOrders.js"></script>
+<script type="text/javascript" src="resources/javascript/repeatOrder.js"></script>
+
+
+</html>

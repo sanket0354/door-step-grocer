@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>WelcomeToDoorStepGrocer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="resources/css/animate.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="resources/font-awesome-4.6.3/css/font-awesome.min.css">
+<script type="text/javascript"
+	src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet" />
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="resources/css/StyleSheet3.css">
+<script type="text/javascript" src="resources/javascript/admin.js"></script>
+
+</head>
+<body>
+	<header>
+		<!-- This class represent navbar of website and it contains two menu items as the form o the button which is Login and Signup -->
+		<nav class="navbar navbar-inverse navbar-fixed-top" id="mynavbar">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#myNavbar">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a href="#" class="navbar-brand" style="font-weight: bold;">Doorstep-Grocer</a>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav navbar-right" style="text-align: center;">
+						<li><a id="customer" href="customer.html"><span
+								style="cursor: pointer; font-size: 15px; color: white; font-family: 'open_sansregular', 'Helvetica Neue', Arial, sans-serif;"><b>Store Front</b></span></a></li>
+						<li><a id="Logout" onclick="sendLogOutRequest()"><span
+								style="cursor: pointer; font-size: 15px; color: white; font-family: 'open_sansregular', 'Helvetica Neue', Arial, sans-serif;"><b>Logout</b></span></a>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div id="sidebar">
+		<!-- Sidebar -->
+		<nav class="navbar navbar-inverse navbar-fixed-top"
+			id="sidebar-wrapper" role="navigation">
+			<ul id="DyanamicNavigationBar" class="nav sidebar-nav">
+				<!-- THIS PART WILL BE DYNAMICALLY POPULATED FROM DATABASE -->
+				<li><a href="#userDetails">User Details</a></li>
+			</ul>
+		</nav>
+	</div>
+
+
+
+
+	<div class="items-container">
+		<div id="addSuccessPlaceOrder"></div>
+		<div id="userDetails">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<i class="fa fa-user fa-fw"></i> Users
+							</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-6">
+									<form class="form-inline">
+										<div class="form-group">
+											<label>Search by First Name:</label> <input id="inputSearch"
+												class="form-control input-sm" placeholder=""
+												onkeyup="findUser()">
+										</div>
+									</form>
+								</div>
+							</div>
+							<br />
+							<div class="table-responsive" id="userInformationBody">
+								<table class="table table-bordered table-hover table-striped"
+									id="userTable">
+									<thead>
+										<tr>
+											<th>First Name</th>
+											<th>Last Name</th>
+											<th>Email Address</th>
+											<th>Address</th>
+											<th>City</th>
+											<th>State</th>
+											<th>Postal Code</th>
+											<th>Admin</th>
+											<th>Driver</th>
+											<th>Admin</th>
+											<th>Driver</th>
+										</tr>
+									</thead>
+									<tbody id="adminPanelUserTableBody">
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<i class="fa fa-money fa-fw"></i> Orders
+							</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-6">
+									<form class="form-inline">
+										<div class="form-group">
+											<label>Search by First Name:</label> <input
+												id="inputSearchOrder" class="form-control input-sm"
+												placeholder="" onkeyup="findUserOrder()">
+										</div>
+									</form>
+								</div>
+							</div>
+							<br />
+							<div class="panel-group" id="accordion">
+
+								<div class="table-responsive" id="orderBody">
+
+									<table class="table table-bordered table-hover table-striped"
+										id="orderTable">
+										<thead>
+											<tr>
+												<th>Order Number</th>
+												<th>Order Date</th>
+												<th>Delivery Time</th>
+												<th>Amount(CAD)</th>
+												<th>Order By</th>
+											</tr>
+										</thead>
+										<tbody id="adminPanelOrderTableBody">
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-6">
+					<div class="panel panel-default" id="detailReviewOrder"></div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+
+
+
+</body>
+
+<script type="text/javascript" src="resources/javascript/loginv1.js"></script>
+<script type="text/javascript" src="resources/javascript/logOut.js"></script>
+
+<script type="text/javascript"
+	src="resources/javascript/loadTheStoreFrontForFirstTime.js"></script>
+<script type="text/javascript" src="resources/javascript/cart.js"></script>
+<script type="text/javascript"
+	src="resources/javascript/changeLanguage.js"></script>
+<script type="text/javascript"
+	src="resources/javascript/checkoutcart.js"></script>
+<script type="text/javascript"
+	src="resources/javascript/previousOrders.js"></script>
+<script type="text/javascript" src="resources/javascript/repeatOrder.js"></script>
+
+
+</html>

@@ -1,0 +1,154 @@
+html{
+	height:100%;
+}
+
+body {
+	background-image: url("../images/main_background_image.jpg");
+	min-height:100%;
+   	width:100%;
+	margin: 0;
+	position: relative;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.navbar-inverse {
+	background-color: rgba(34, 34, 34, 0.49);
+}
+
+.main-container{
+	margin: 0 auto;
+  	padding-top: 30px;
+  	max-width: 100%;
+  	width: 100%;
+}
+
+.jumbotron{
+	background-color: transparent;
+}
+.jumbotron h1 {
+    font-size: 30px;
+    text-align: center;
+}
+
+#signupBox {
+	padding: 20px;
+	margin: 50px auto;
+	width: 350px;
+	background-color: rgba(245, 245, 245, 0.9);
+	-webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+}
+
+#loginBox {
+	padding: 20px;
+	margin: 50px auto;
+	width: 350px;
+	display: none; /* Login box will not appear until user clicked on login button */
+	background-color: rgba(245, 245, 245, 0.9);
+	-webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+}
+
+h1, input {
+	font-family: Oleo Script, cursive;
+	color: black;
+}
+
+.input {
+	width: 75%;
+	height: 50px;
+	display: block;
+	margin: 0 auto 15px;
+	padding: 0 15px;
+	border: none;
+	border-bottom: 2px solid #ebebeb;
+}
+
+.input:focus {
+	outline: none;
+	border-bottom-color: #3CC !important;
+}
+
+.input:hover {
+	border-bottom-color: #dcdcdc;
+}
+
+.input:invalid {
+	box-shadow: none;
+}
+
+.pass:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 1000px white inset;
+}
+
+.inputButton {
+	position: relative;
+	width: 75%;
+	height: 50px;
+	display: block;
+	margin: 30px auto 30px;
+	color: white;
+	background-color: #3CC;
+	border: none;
+	-webkit-box-shadow: 0 5px 0 #2CADAD;
+	-moz-box-shadow: 0 5px 0 #2CADAD;
+	box-shadow: 0 5px 0 #2CADAD;
+}
+
+.inputButton:hover {
+	top: 2px;
+	-webkit-box-shadow: 0 3px 0 #2CADAD;
+	-moz-box-shadow: 0 3px 0 #2CADAD;
+	box-shadow: 0 3px 0 #2CADAD;
+}
+
+.inputButton:active {
+	top: 5px;
+	box-shadow: none;
+}
+
+.inputButton:focus {
+	outline: none;
+}
+.footer{
+	position: absolute;
+  	right: 0;
+  	bottom: 0;
+  	left: 0;
+  	padding: 1rem;
+  	background-color: transparent;
+  	text-align: center;
+}
+.footer p{
+	color:white;
+}
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 6px solid #3498db;
+  width: 30px;
+  height: 30px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  display: none;
+  float: right;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#loginError{
+	color: Red;
+	text-align: center;
+}

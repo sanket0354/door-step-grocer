@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>WelcomeToDoorStepGrocer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="resources/css/animate.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="resources/font-awesome-4.6.3/css/font-awesome.min.css">
+<script type="text/javascript"
+	src="//code.jquery.com/jquery-1.4.4.min.js"></script>
+<link rel="stylesheet" href="resources/css/StyleSheet.css">
+<script type="text/javascript" src="resources/javascript/loginv1.js"></script>
+</head>
+<body>
+	<header>
+		<!-- This class represent navbar of website and it contains two menu items as the form o the button which is Login and Signup -->
+		<nav class="navbar navbar-inverse navbar-fixed-top" id="my-navbar">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#myNavbar">
+						<span class="icon-bar"></span> <span class="icon-bar"></span>
+					</button>
+					<a href="#" class="navbar-brand" style="font-weight: bold;">Doorstep-Grocer</a>
+
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav navbar-right" style="text-align: center;">
+						<li><a href="#" id="loginS"><span
+								style="font-size: 15px; color: white; font-family: 'open_sansregular', 'Helvetica Neue', Arial, sans-serif;"><b>Login</b></span></a>
+						</li>
+						<li><a href="#" id="signinS"><span
+								style="font-size: 15px; color: white; font-family: 'open_sansregular', 'Helvetica Neue', Arial, sans-serif;"><b>Signup</b></span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<!-- This class contains signup and login form and also whole center part of the webpage -->
+	<div class="main-container">
+		<div class="jumbotron animated bounceInDown">
+			<div id="signupBox">
+				<!-- This is the first and default signup form. When user open the website this will pop up. -->
+				<form id="signup" name="signup" method="post" action="">
+					<h1>Welcome to Door Step Grocer</h1>
+					<hr>
+					<input name="firstname" id="firstname" type="text"
+						placeholder="First Name" required="required" class="input pass">
+					<input name="lastname" id="lastname" type="text"
+						placeholder="Last Name" required="required" class="input pass">
+					<input name="email" id="email" type="email"
+						placeholder="Email address" required="required" class="input pass">
+					<input name="password" id="password" type="password"
+						placeholder="Choose a password" required="required"
+						class="input pass"> <input name="password2" id="password2"
+						type="password" placeholder="Confirm password" required="required"
+						class="input pass"> <span id="loading" class="loader"></span>
+					<input type="submit" id="signin" value="Sign me up!"
+						class="inputButton">
+				</form>
+			</div>
+			<!-- This is the second and login form. When user already have an account and
+				 if he click on Login button which is in navbar then this form will pop up. 
+				 This all functionality done with the help of css and java script and jQuery-->
+			<div id="loginBox">
+				<form id="login" name="login" method="post" action="">
+					<h1>Welcome to Door Step Grocer</h1>
+					<hr>
+					<input name="emailL" id="emailL" type="email"
+						placeholder="Email address" required="required" class="input pass">
+					<input name="passwordL" id="passwordL" type="password"
+						placeholder="Choose a password" required="required"
+						class="input pass">
+					<div id="loginError"></div>
+					<span id="loading" class="loader"></span> <input type="submit"
+						id="loginButton" value="Login" class="inputButton">
+
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- This class represent the footer means the bottom part of website -->
+	<div class="footer">
+		<p>
+			<b>Copyright &copy; Team Status200 2017</b>
+		</p>
+	</div>
+
+
+</body>
+</html>
